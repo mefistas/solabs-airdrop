@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sol+Abs Airdrop</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;700&display=swap');
+        
+        :root {
+            --neon-blue: #00f2ff;
+            --neon-pink: #ff00f2;
+            --neon-purple: #8a2be2;
+            --dark-bg: #0a0a20;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--dark-bg);
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        h1 {
+            font-size: 4rem;
+            margin: 1rem 0;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .timer {
+            font-size: 3rem;
+            margin: 2rem 0;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .timer span {
+            display: inline-block;
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .connect-btn {
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            border: none;
+            color: white;
+            padding: 1rem 3rem;
+            font-size: 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 2rem 0;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px var(--neon-blue);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .connect-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px var(--neon-blue);
+        }
+        
+        .transactions {
+            background: rgba(10, 10, 40, 0.7);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 3rem;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        th {
+            text-align: left;
+            padding: 1rem;
+            color: var(--neon-blue);
+            border-bottom: 1px solid rgba(0, 242, 255, 0.3);
+        }
+        
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(138, 43, 226, 0.2);
+        }
+        
+        .status-done {
+            color: #00ff88;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .social-btn {
+            background: rgba(138, 43, 226, 0.2);
+            border: 1px solid var(--neon-purple);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .social-btn:hover {
+            background: var(--neon-purple);
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px var(--neon-purple);
+        }
+        
+        /* Crypto animations */
+        .crypto-particle {
+            position: absolute;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .solabs-badge {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-pink));
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 0 20px var(--neon-blue);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 20px var(--neon-blue); }
+            50% { box-shadow: 0 0 40px var(--neon-pink); }
+            100% { box-shadow: 0 0 20px var(--neon-blue); }
+        }
+        
+        .glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle at center, rgba(0, 242, 255, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="glow"></div>
+            <h1>Sol+Abs Airdrop</h1>
+            <div class="subtitle">Something big is happening here</div>
+            
+            <div class="timer">
+                <span id="hours">00</span>:
+                <span id="minutes">00</span>:
+                <span id="seconds">00</span>
+            </div>
+            
+            <button class="connect-btn" id="connectWallet">CONNECT WALLET</button>
+            
+            <div class="social-links">
+                <a href="#" class="social-btn">X</a>
+                <a href="#" class="social-btn">TG</a>
+                <a href="#" class="social-btn">YT</a>
+            </div>
+        </header>
+        
+        <div class="transactions">
+            <h2>Recent Transactions</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Signature</th>
+                        <th>Block</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Age</th>
+                        <th>Value</th>
+                        <th>Fee</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>colpxy...</td>
+                        <td>48234</td>
+                        <td>5hW6WhIorPVP...</td>
+                        <td>3oLMnufnp3D...</td>
+                        <td>3 min ago</td>
+                        <td>1.4 SOL</td>
+                        <td>0.000005 SOL</td>
+                        <td class="status-done">✔ done</td>
+                    </tr>
+                    <tr>
+                        <td>pktgde...</td>
+                        <td>68091</td>
+                        <td>2zBxWAHwvG3...</td>
+                        <td>55HBcQTCSHN...</td>
+                        <td>2 min ago</td>
+                        <td>1.6 SOL</td>
+                        <td>0.000005 SOL</td>
+                        <td class="status-done">✔ done</td>
+                    </tr>
+                    <tr>
+                        <td>vz6m3b...</td>
+                        <td>89777</td>
+                        <td>8BP3L13V1tD...</td>
+                        <td>2U8xETWHuvY...</td>
+                        <td>1 min ago</td>
+                        <td>4.6 SOL</td>
+                        <td>0.000005 SOL</td>
+                        <td class="status-done">✔ done</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="solabs-badge">YOU FOUND 1 SOLABS</div>
+    
+    <script>
+        // Create crypto particles
+        function createParticles() {
+            const colors = ['#00f2ff', '#ff00f2', '#8a2be2', '#ffffff'];
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'crypto-particle';
+                
+                // Random properties
+                const size = Math.random() * 5 + 2;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const posX = Math.random() * window.innerWidth;
+                const posY = Math.random() * window.innerHeight;
+                const duration = Math.random() * 10 + 5;
+                const delay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.background = color;
+                particle.style.left = `${posX}px`;
+                particle.style.top = `${posY}px`;
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+                
+                document.body.appendChild(particle);
+            }
+        }
+        
+        // Add floating animation
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes float {
+                0%, 100% { transform: translate(0, 0) rotate(0deg); }
+                25% { transform: translate(20px, -20px) rotate(5deg); }
+                50% { transform: translate(-20px, 10px) rotate(-5deg); }
+                75% { transform: translate(10px, 20px) rotate(3deg); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            
+            // Connect wallet button
+            document.getElementById('connectWallet').addEventListener('click', () => {
+                alert('Wallet connection functionality would be implemented here');
+            });
+            
+            // Timer is already at 00:00:00 as requested
+        });
+    </script>
+</body>
+</html>
